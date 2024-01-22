@@ -1,7 +1,5 @@
 // merge allows different config files to be used together (eg webpack.common.js & this file)
 const { merge } = require('webpack-merge');
-// HtmlWebpackPlugin simplifies creation of HTML files to serve webpack bundles, especially where filenames are random and may change
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 // ModuleFederationPlugin defines which files can be accessed by this host (container) app
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 // import common config file to be merged with this one
@@ -29,9 +27,6 @@ const devConfig = {
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html', // the file to serve on localhost:8080
     }),
   ],
 };

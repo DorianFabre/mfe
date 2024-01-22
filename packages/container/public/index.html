@@ -1,0 +1,15 @@
+<!-- This file is used in the development of the overall project and in production, unlike the same file in the imported (remote) apps -->
+<!DOCTYPE html>
+<!-- The file at ../src/index.js is automatically imported by webpack -->
+<!-- Imported files can be [root]: src.js, src.json or src.wasm OR [root]: src/index, src/index.js, src/index.json or src/index.wasm -->
+<html lang="en">
+  <head>
+    <title>Shop</title>
+  </head>
+  <body>
+    <!-- This div is populated by js in the imported file (see above)
+    be careful with the identifier - renaming the id to one that is used in importing the content will cause it to fail 
+    this is due to it overwriting a global variable with the same id that was created by webpack, in webpack.config.js at ModuleFederationPlugin.remotes -->
+    <div id="root"></div>
+  </body>
+</html>

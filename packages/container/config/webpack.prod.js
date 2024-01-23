@@ -22,7 +22,7 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'container', // just a description, not used for anything (the name is used when the app is a remote)
       remotes: { // lists apps that the container can search for additional code
-        marketing: `marketing@https://d2wwc097lm49bv.cloudfront.net/marketing/latest/remoteEntry.js`,
+        marketing: 'marketing@https://d2wwc097lm49bv.cloudfront.net/marketing/latest/remoteEntry.js',
         // 'marketing:' - key used to link to imported items
         // 'marketing@...' - the name of the remote app, defined in it's own webpack.config.js file as 'name'
         // '...${domain}...' - environment variable set above

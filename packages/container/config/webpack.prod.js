@@ -10,7 +10,8 @@ const packageJson = require('../package.json');
 // set up an environment variable contain a string defining where the production app is hosted
 // the variable will be defined in the CI/CD pipeline as a repository secret called PRODUCTION_DOMAIN
 // the string will be used when webpack does a production build
-const domain = process.env.PRODUCTION_DOMAIN;
+// NOTE: Using the URL hard-coded below as it is not being read for some reason.
+// const domain = process.env.PRODUCTION_DOMAIN;
 
 const prodConfig = {
   mode: 'production', // causes files to be optimised/minified, amongst other things

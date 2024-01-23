@@ -25,18 +25,10 @@ jobs:
     - run: npm run build
 
     # deploy to AWS
-    # - uses: shinyinc/action-aws-cli@v1.2
-    # sync the dist folder to the AWS S3 bucket
-    # - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
-    #   env:
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     AWS_DEFAULT_REGION: eu-west-2
-
     - uses: aws-actions/configure-aws-credentials@v1.7.0
       with:
-        aws-access-key-id: AKIAXYKJWNCP6FJ6Q2F6
-        aws-secret-access-key: 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
-        aws-region: us-east-1
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
       
-    - run: aws s3 sync dist s3://dorianfabre-mfe-dashboard/container/latest
+    - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest

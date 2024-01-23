@@ -3,7 +3,7 @@ name: deploy-mfa-container
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       # only run the workflow if a change has happened within packages/container
       - 'packages/container/**'

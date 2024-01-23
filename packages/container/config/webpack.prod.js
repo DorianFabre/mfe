@@ -8,7 +8,7 @@ const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
 // set up an environment variable contain a string defining where the production app is hosted
-// the variable will be defined in the CI/CD pipeline
+// the variable will be defined in the CI/CD pipeline as a repository secret called PRODUCTION_DOMAIN
 // the string will be used when webpack does a production build
 const domain = process.env.PRODUCTION_DOMAIN;
 
@@ -22,12 +22,12 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'container', // just a description, not used for anything (the name is used when the app is a remote)
       remotes: { // lists apps that the container can search for additional code
-        marketing: `marketing@${domain}/marketing/remoteEntry.js`,
+        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
         // 'marketing:' - key used to link to imported items
         // 'marketing@...' - the name of the remote app, defined in it's own webpack.config.js file as 'name'
         // '...${domain}...' - environment variable set above
-        // '.../marketing/...' - folder in domain containing the remote (child) app
-        // '...remoteEntry.js' - entry point for the remote app, defined in it's own webpack.config.js file as 'filename'
+        // '.../marketing/latest...' - folder in domain containing the remote (child) app
+        // '.../remoteEntry.js' - entry point for the remote app, defined in it's own webpack.config.js file as 'filename'
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]

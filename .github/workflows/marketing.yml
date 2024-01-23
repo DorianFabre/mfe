@@ -1,5 +1,5 @@
-# set up a github workflow for the host (container) app
-name: deploy-mfe-container
+# set up a github workflow for the marketing remote (child) app
+name: deploy-mfe-marketing
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
       - main
     paths:
       # only run the workflow if a change has happened within packages/container
-      - 'packages/container/**'
+      - 'packages/marketing/**'
 
 defaults:
   run:
     # set the execution environment to within the packages/container folder
-    working-directory: packages/container
+    working-directory: packages/marketing
 
 jobs:
   build:
@@ -24,10 +24,6 @@ jobs:
     - uses: actions/checkout@v2
     - run: npm install
     - run: npm run build
-      # get the PRODUCTION_DOMAIN secret
-      # this is used in webpack.prod.js to determine where the remote (child) apps are located
-      env:
-        PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
     # set up AWS access
     - uses: aws-actions/configure-aws-credentials@v1.7.0
@@ -37,6 +33,6 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     # deploy to AWS
-    - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
-    # run invalidation on index.html to prevent caching
-    - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/container/latest/index.html"
+    - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/marketing/latest
+    # run invalidation on remoteEntry.js to prevent caching
+    - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/marketing/latest/remoteEntry.js"

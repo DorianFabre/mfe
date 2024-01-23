@@ -18,6 +18,7 @@ const prodConfig = {
       // ... used in the beginning of the URL for the app (ie 'products@http...')
       filename: 'remoteEntry.js', // contains a list of available files & directions on how to load them..
       // ... used in the host's (container) own webpack.config.js file when importing remote apps as the end of the URL (ie '...localhost:8081/remoteEntry.js')
+      publicPath: '/marketing/latest/', // prepends a path to the filenames that are generated so they can be found on the hosting service
       exposes: {  // creates a version of the file that can be loaded into a browser.
         './MarketingApp': './src/bootstrap', // creates an alias for the file that can be called in the host (container) app
       },

@@ -16,7 +16,7 @@ const prodConfig = {
   mode: 'production', // causes files to be optimised/minified, amongst other things
   output: {
     filename: '[name].[contenthash].js', // used as a template for naming files when building files for production, primarily for caching
-    publicPath: '/container/latest/', // prepends a path to the filenames that are generated so they can be found on the hosting service
+    // publicPath: '/container/latest/', // prepends a path to the filenames that are generated so they can be found on the hosting service
   },
   plugins: [
     new ModuleFederationPlugin({

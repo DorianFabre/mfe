@@ -37,4 +37,4 @@ const prodConfig = {
 
 // merge the common config file with the contents of this one
 // any similar elements in the first item (commonConfig) will be overwritten by those in the second (prodConfig )
-module.exports = merge(commonConfig, prodConfig) 
+module.exports = merge(commonConfig, prodConfig)

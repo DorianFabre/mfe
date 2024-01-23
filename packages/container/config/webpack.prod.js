@@ -10,8 +10,7 @@ const packageJson = require('../package.json');
 // set up an environment variable contain a string defining where the production app is hosted
 // the variable will be defined in the CI/CD pipeline as a repository secret called PRODUCTION_DOMAIN
 // the string will be used when webpack does a production build
-// NOTE: Using the URL hard-coded below as it is not being read for some reason.
-// const domain = process.env.PRODUCTION_DOMAIN;
+const domain = process.env.PRODUCTION_DOMAIN;
 
 const prodConfig = {
   mode: 'production', // causes files to be optimised/minified, amongst other things
@@ -23,7 +22,7 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'container', // just a description, not used for anything (the name is used when the app is a remote)
       remotes: { // lists apps that the container can search for additional code
-        marketing: 'marketing@https://d2wwc097lm49bv.cloudfront.net/marketing/latest/remoteEntry.js',
+        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
         // 'marketing:' - key used to link to imported items
         // 'marketing@...' - the name of the remote app, defined in it's own webpack.config.js file as 'name'
         // '...${domain}...' - environment variable set above

@@ -12,7 +12,7 @@ const devConfig = {
   devServer: {
     port: 8080, // this app is served on localhost:8080 as a standalone item
     historyApiFallback: {
-      index: 'index.html',
+      index: '/index.html',
     },
   },
   plugins: [

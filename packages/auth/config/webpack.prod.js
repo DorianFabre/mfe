@@ -11,16 +11,16 @@ const prodConfig = {
   mode: 'production', // causes files to be optimised/minified, amongst other things
   output: {
     filename: '[name].[contenthash].js', // used as a template for naming files when building files for production, primarily for caching
-    publicPath: '/marketing/latest/', // prepends a path to the filenames that are generated so they can be found on the hosting service
+    publicPath: '/auth/latest/', // prepends a path to the filenames that are generated so they can be found on the hosting service
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'marketing', // name is used in host's (container) own webpack.config.js file when importing remote apps... 
-      // ... used in the beginning of the URL for the app (ie 'marketing@http...')
+      name: 'auth', // name is used in host's (container) own webpack.config.js file when importing remote apps... 
+      // ... used in the beginning of the URL for the app (ie 'auth@http...')
       filename: 'remoteEntry.js', // contains a list of available files & directions on how to load them..
       // ... used in the host's (container) own webpack.config.js file when importing remote apps as the end of the URL (ie '...localhost:8081/remoteEntry.js')
       exposes: {  // creates a version of the file that can be loaded into a browser.
-        './MarketingApp': './src/bootstrap', // creates an alias for the file that can be called in the host (container) app
+        './AuthApp': './src/bootstrap', // creates an alias for the file that can be called in the host (container) app
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]

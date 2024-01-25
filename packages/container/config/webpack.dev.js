@@ -9,6 +9,9 @@ const packageJson = require('../package.json');
 
 const devConfig = {
   mode: 'development',
+  output: {
+    publicPath: 'http://localhost:8080/'  // prepends to the filenames that are generated so they can be found on the hosting service - must be identical to the port listed below
+  },
   devServer: {
     port: 8080, // this app is served on localhost:8080 as a standalone item
     historyApiFallback: {
@@ -24,6 +27,7 @@ const devConfig = {
         // 'marketing@...' - the name of the remote app, defined in it's own webpack.config.js file as 'name'
         // '...@http://localhost:8081/...' - URL for the remote app's entry file, defined in it's own webpack.config.js file as the devServer port
         // '.../remoteEntry.js' - entry point for the remote app, defined in it's own webpack.config.js file as 'filename'
+        auth: 'auth@http://localhost:8082/remoteEntry.js', // same rules as above
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]

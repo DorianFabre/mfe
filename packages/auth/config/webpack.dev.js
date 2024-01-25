@@ -12,28 +12,28 @@ const packageJson = require('../package.json');
 const devConfig = {
   mode: 'development',
   output: {
-    publicPath: 'http://localhost:8081/'  // prepends to the filenames that are generated so they can be found on the hosting service - must be identical to the port listed below
+    publicPath: 'http://localhost:8082/'  // prepends to the filenames that are generated so they can be found on the hosting service - must be identical to the port listed below
   },
   devServer: {
-    port: 8081, // this app is served on localhost:8081 as a standalone item
+    port: 8082, // this app is served on localhost:8082 as a standalone item
     historyApiFallback: {
       index: '/index.html',
     },
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'marketing', // name is used in host's (container) own webpack.config.js file when importing remote apps... 
+      name: 'auth', // name is used in host's (container) own webpack.config.js file when importing remote apps... 
       // ... used in the beginning of the URL for the app (ie 'auth@http...')
       filename: 'remoteEntry.js', // contains a list of available files & directions on how to load them..
-      // ... used in the host's (container) own webpack.config.js file when importing remote apps as the end of the URL (ie '...localhost:8081/remoteEntry.js')
+      // ... used in the host's (container) own webpack.config.js file when importing remote apps as the end of the URL (ie '...localhost:8082/remoteEntry.js')
       exposes: {  // creates a version of the file that can be loaded into a browser.
-        './MarketingApp': './src/bootstrap', // creates an alias for the file that can be called in the host (container) app
+        './AuthApp': './src/bootstrap', // creates an alias for the file that can be called in the host (container) app
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html', // the file to serve on localhost:8081
+      template: './public/index.html', // the file to serve on localhost:8082
     }),
   ],
 };

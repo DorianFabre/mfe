@@ -40,7 +40,7 @@ const mount = (el, {  // this function's name could be anything; el is the conta
 
 // If the app is running in development and in isolation, call mount immediately, otherwise ignore the following
 if (process.env.NODE_ENV === 'development') {// if this is running in dev mode () - mode is set in webpack.config.js at module.exports.mode
-  const devRoot = document.querySelector('#_marketing-dev-root'); // the selector should be one that is unlikely to be used anywhere else, especially in the host (container) app
+  const devRoot = document.querySelector('#_auth-dev-root'); // the selector should be one that is unlikely to be used anywhere else, especially in the host (container) app
   if (devRoot) { // if the element exists...
     mount(devRoot, { defaultHistory: createBrowserHistory() }); // ... pass the element to the mount() function...
     // ...with a browser history object which is used when browsing in isolation (ie not in the host (container) app)

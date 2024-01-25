@@ -1,0 +1,38 @@
+# set up a github workflow for the auth remote (child) app
+name: deploy-mfe-auth
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # only run the workflow if a change has happened within packages/container
+      - 'packages/auth/**'
+
+defaults:
+  run:
+    # set the execution environment to within the packages/container folder
+    working-directory: packages/auth
+
+jobs:
+  build:
+    # specify a Linux-based virtual machine
+    runs-on: ubuntu-latest
+
+    steps: 
+    # load the code into the virtual machine, install dependencies and build
+    - uses: actions/checkout@v2
+    - run: npm install
+    - run: npm run build
+
+    # set up AWS access
+    - uses: aws-actions/configure-aws-credentials@v1.7.0
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    # deploy to AWS
+    - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/auth/latest
+    # run invalidation on remoteEntry.js to prevent caching
+    - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/auth/latest/remoteEntry.js"

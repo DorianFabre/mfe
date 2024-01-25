@@ -28,6 +28,7 @@ const prodConfig = {
         // '...${domain}...' - environment variable set above
         // '.../marketing/latest...' - folder in domain containing the remote (child) app
         // '.../remoteEntry.js' - entry point for the remote app, defined in it's own webpack.config.js file as 'filename'
+        auth: `auth@${domain}/auth/latest/remoteEntry.js`, // same rules as above
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]

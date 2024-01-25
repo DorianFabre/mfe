@@ -6,12 +6,12 @@ on:
     branches:
       - main
     paths:
-      # only run the workflow if a change has happened within packages/container
+      # only run the workflow if a change has happened within packages/auth
       - 'packages/auth/**'
 
 defaults:
   run:
-    # set the execution environment to within the packages/container folder
+    # set the execution environment to within the packages/auth folder
     working-directory: packages/auth
 
 jobs:

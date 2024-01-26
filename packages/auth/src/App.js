@@ -17,20 +17,19 @@ const generateClassName = createGenerateClassName({
   productionPrefix: 'au',
 });
 
-export default ({ history }) => { // passing in the history prop from bootstrap.js
+export default ({ history, onSignIn }) => { // passing in the history object and onSignIn callback from bootstrap.js
   return <div>
     <StylesProvider generateClassName={generateClassName}>
       {/* Pass the history object to Router */}
       <Router history={history}> 
         <Switch>
-          <Route
-            path="/auth/signin"
-            component={Signin}
-          />
-          <Route
-            path="/auth/signup"
-            component={Signup}
-          />
+          {/* create the routes to the app's content and pass in the onSignIn callback */}
+          <Route path="/auth/signin">
+            <Signin onSignIn={onSignIn} />
+          </Route>
+          <Route path="/auth/signup">
+            <Signup onSignIn={onSignIn} />
+          </Route>
         </Switch>
       </Router>
     </StylesProvider>

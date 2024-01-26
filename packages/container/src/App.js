@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'; // lazy is a function, Suspense is a React component; used together for lazy loading
+import React, { lazy, Suspense, useState } from 'react'; // lazy is a function, Suspense is a React component; used together for lazy loading
 // Use BrowserRouter in the host (container) app only. This makes use of the BROWSER history object (the part of the URL after the domain)
 // Remote (child) apps should use the MEMORY history object to prevent clashing/race conditions
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -21,21 +21,29 @@ const generateClassName = createGenerateClassName({
 });
 
 export default () => {
+  // state object to hold the signedIn value
+  const [isSignedIn, setIsSignedIn] = useState(false);
   return (
     <BrowserRouter>
       <StylesProvider generateClassName={generateClassName}>
         <div>
 
-          {/* The Header component is always displayed */}
-          <Header />
+          {/* The Header component is always displayed so does not fall within the Suspense/Switch section below */}
+          {/* isSignedIn is passed to the Header to control which text it displays, which Route to take, and whether the signOut function will run */}
+          {/* onSignOut is triggered by a button in the Header */}
+          <Header isSignedIn={isSignedIn} onSignOut={() => setIsSignedIn(false)} />
 
           {/* Display a loading message while the remote (child) apps are lazy loading */}
           <Suspense fallback={<Progress />}>
 
             {/* Choose which remote (child) app to display */}
             <Switch>
-              {/* The route chosen is whichever path is the FIRST to match the URL: "/" should always be last as it picks up everything that has not been routed */}
-              <Route path="/auth" component={AuthLazy} />
+              {/* The route chosen is whichever has the path that FIRST matches the URL => "/" should always be last as it picks up everything that has not been routed */}
+              <Route path="/auth">
+                {/* AuthLazy is passed in as a React component as it needs to include the onSignIn function as a prop */}
+                <AuthLazy onSignIn={() => setIsSignedIn(true)} />
+              </Route>
+              {/* MarketingLazy has no requirement to pass any props so it is included as the Route's component property */}
               <Route path="/" component={MarketingLazy} />
             </Switch>
 

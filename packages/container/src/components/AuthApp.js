@@ -10,13 +10,14 @@ import { useHistory} from 'react-router-dom';
 import { mount } from 'auth/AuthApp';
 
 // NOTE: using this approach makes it possible to use any framework in the imported remote (child) app, as long as it can be exported as an HTML element
-export default () => {
+export default ({onSignIn}) => { // onSignIn is a function prop, passed in from ../App.js and is used to manage the 'signed in' state
   const ref = useRef(null);
   const history = useHistory(); // creates a BROWSER history object (not memory history as used in remote (child) apps)
 
   useEffect(() => { // runs when this component is first accessed
     const { onParentNavigate } = mount(ref.current, { // gets the onParentNavigate function which is returned from the Auth app's bootstrap.js component
-    // ... and creates an instance of the Auth app using the mount() function
+    // ... creates an instance of the Auth app using the mount() function and renders it into the div at the bottom of this page
+    // the second argument is a configuration object...
 
       initialPath: history.location.pathname, // the current path is passed to the remote (child) app when it's loaded, to be used as the default path
 
@@ -30,8 +31,11 @@ export default () => {
         if (pathname !== nextPathname) { // if the current pathname is not the same as the nextPathname...
           history.push(nextPathname); // ...use the history object to navigate to the new path
         }
-      }
-    }); // ...and renders it into the div below
+      },
+
+      onSignIn, // create a callback for user sign in => onSignIn is a function prop, passed in from ../App.js and is used to manage the 'signed in' state
+
+    });
 
     history.listen(onParentNavigate); // use history's built-in listener to call onParentNavigate whenever a navigation event occurs in this host (container) app...
     // ...onParentNavigate is a function that is passed in from the current remote (child) app and is used to update the navigation there

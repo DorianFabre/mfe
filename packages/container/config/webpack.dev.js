@@ -28,6 +28,7 @@ const devConfig = {
         // '...@http://localhost:8081/...' - URL for the remote app's entry file, defined in it's own webpack.config.js file as the devServer port
         // '.../remoteEntry.js' - entry point for the remote app, defined in it's own webpack.config.js file as 'filename'
         auth: 'auth@http://localhost:8082/remoteEntry.js', // same rules as above
+        dashboard: 'dashboard@http://localhost:8083/remoteEntry.js', // same rules as above
       },
       shared: packageJson.dependencies, // prevents libraries from downloading multiple times...
       // ... can be more specific by listing an array of items instead, eg: [react, react-dom, etc...]

@@ -1,0 +1,15 @@
+<!-- This file is only used in the development of this sub-project, never in the development of the host (container) or in production -->
+<!-- Therefore this file is usually very sparse and is only used for giving the app a browser-friendly base -->
+<!DOCTYPE html>
+<!-- The file at ../src/index.js is automatically imported by webpack -->
+<!-- Imported files can be [root]: src.js, src.json or src.wasm OR [root]: src/index, src/index.js, src/index.json or src/index.wasm -->
+<html lang="en">
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <!-- The content of this div is populated by js in the imported file -->
+    <!-- The identifier should be unlikely to be used anywhere else, especially by the host (container) app -->
+    <div id="_dashboard-dev-root"></div> 
+  </body>
+</html> 

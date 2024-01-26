@@ -3,7 +3,7 @@ import { useHistory} from 'react-router-dom';
 
 // ... webpack finds the 'auth' item defined in webpack.config.js as a remote...
 // ... and uses the 'AuthApp' alias defined in the imported app's own webpack.config.js file...
-// ... to import the 'mount' function which it exports, and renames it as 'productsMount'.
+// ... to import the 'mount' function which it exports, and renames it as 'authMount'.
 // NOTE: This is not imported as a React component as the host (container) must not assume a remote (child) app is using any particular framework
 // This is in case either ever changes the framework it uses
 // There should also be near-zero coupling between host and remote, and imports should be as generic as possible
